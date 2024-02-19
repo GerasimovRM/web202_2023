@@ -14,7 +14,7 @@ router = APIRouter(prefix="/language", tags=["language"])
 @router.get("/{id}", response_model=Optional[LanguageOut])
 async def get_language(language_id: int,
                        ):
-    session: Session = session_factory()
+    session = session_factory()
     language = LanguageService.get_language_by_id(language_id, session)
     if language:
         return LanguageOut(**language.to_dict())
