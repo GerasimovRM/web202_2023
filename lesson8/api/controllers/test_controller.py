@@ -24,5 +24,7 @@ async def test(user_in: UserIn,
 
 
 @router.get("/example_jwt", response_model=UserOut)
-async def example_jwt(current_user: User = Depends(AuthService.get_current_user)):
+async def example_jwt(resourse_id: int,
+        current_user: User = Depends(AuthService.get_current_user)):
+
     return UserOut(**current_user.to_dict())

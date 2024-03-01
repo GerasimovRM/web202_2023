@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  fastapi-service:
+    build: .
+    command: uvicorn api.server:app --host 0.0.0.0 --port 4000
+    ports:
+      - 4000:4000
+    environment:
+      - DATABASE_USER=${DATABASE_USER}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD}
+      - DATABASE_HOST=${DATABASE_HOST}
+      - DATABASE_PORT=${DATABASE_PORT}
+      - DATABASE_NAME=${DATABASE_NAME}
+      - SQL_ECHO=${SQL_ECHO}
+      - TOKEN_EXP_IN_MINUTES=${TOKEN_EXP_IN_MINUTES}
+      - SECRET_JWT_KEY=${SECRET_JWT_KEY}
+    depends_on:
+      - postgres-db
+    networks:
+      - fastapi-dp
+
+  postgres-db:
+    image: postgres
+    ports:
+      - 5000:5432
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    networks:
+      - fastapi-dp
+
+networks:
+  fastapi-dp:

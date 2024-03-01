@@ -1,11 +1,18 @@
-DATABASE_USER = "admin"
-DATABASE_PASSWORD = "123"
-DATABASE_HOST = "localhost"
-DATABASE_PORT = 5432
-DATABASE_NAME = "test_db"
+import os
 
-SQL_ECHO = True
+from dotenv import load_dotenv
 
-TOKEN_EXP_IN_MINUTES = 10
+if not os.getenv("DOCKER"):
+    load_dotenv(".env")
 
-SECRET_JWT_KEY = "Fynpg%WsUeZu0::*>#5gd]d%gBdv%sdLMoG}n9,4+)-@HGLV]):@8*}x_VHW.EW9EVBe^r2E+vzkwCnv?wv+uR^3D5?YP>QKnLM2"
+DATABASE_USER = os.getenv("DATABASE_USER")
+DATABASE_PASSWORD = os.getenv("DATABASE_PASSWORD")
+DATABASE_HOST = os.getenv("DATABASE_HOST")
+DATABASE_PORT = os.getenv("DATABASE_PORT")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
+print(DATABASE_USER, DATABASE_PASSWORD, DATABASE_HOST)
+SQL_ECHO = True if os.getenv("SQL_ECHO") in ("True", "true", "1") else False
+
+TOKEN_EXP_IN_MINUTES = int(os.getenv("TOKEN_EXP_IN_MINUTES"))
+
+SECRET_JWT_KEY = os.getenv("SECRET_JWT_KEY")

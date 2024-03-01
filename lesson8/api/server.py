@@ -7,13 +7,14 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from database import get_session
 from model import Token
 from services import UserService, AuthService
-from .controllers import test_controller
+from .controllers import test_controller, phone_controller
 from .controllers import items_controller
 
 
 app = FastAPI(docs_url="/")
 app.include_router(items_controller)
 app.include_router(test_controller)
+app.include_router(phone_controller)
 
 
 @app.post("/token")
